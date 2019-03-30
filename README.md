@@ -78,6 +78,12 @@ all(boxes).are("very", "cool");
 ```
 note: like `has` and `have`, `is` and `are` ___cannot___ be used interchangeably.
 
+### kill
+This function can be used for removing specified elements from its parent or all of its child elements
+```js
+document.body.kill();
+//kill all child elements from body
+```
 # Element Object
 these are all available data that one can give to an object to use with `a` and `an` function
 ### tag (must specify)
