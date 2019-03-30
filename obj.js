@@ -1,23 +1,56 @@
-Node.prototype.in = function(e) {
-  e.appendChild(this) ;
-};
 HTMLElement.prototype.is = function() {
   for(c of arguments) {
     this.classList.add(c);
   }
 };
-NodeList.prototype.are = function() {
-  let cs = Array() ;
-  for(g of arguments) {
-    cs.push(g);
+HTMLElement.prototype.isnt = function() {
+  for(c of arguments) {
+    this.classList.remove(c);
   }
+};
+HTMLElement.prototype.says = function(rd){
+  this.appendChild(document.createTextNode(rd));
+  return this;
+}
+HTMLElement.prototype.kill = function(q) {
+  let v = arguments;
+  if (!v.length) {
+    v = this.children;
+  }
+  for (u of v) {
+    this.removeChild(u);
+  }
+  return this;
+};
+Node.prototype.has = function (e) {
+  this.appendChild(e);
+  return this;
+};
+Node.prototype.in = function(e) {
+  e.appendChild(this) ;
+};
+NodeList.prototype.are = function() {
+  let cs = arguments;
   for(q of this) {
     for(g of cs) {
       q.is(g);
     }
   }
 };
-Node.prototype.has = Node.prototype.appendChild;
+NodeList.prototype.arent = function() {
+  let cs = arguments;
+  for(q of this) {
+    for(g of cs) {
+      q.isnt(g);
+    }
+  }
+};
+NodeList.prototype.say = function(r) {
+  for(e of this) {
+    e.appendChild(document.createTextNode(r));
+  }
+  return this;
+};
 NodeList.prototype.have = function(c) {
   let k = Array() ;
   for(e of this) {
