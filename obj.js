@@ -22,6 +22,23 @@ HTMLElement.prototype.kill = function(q) {
   }
   return this;
 };
+HTMLElement.prototype.props = function(q) {
+  for (u of arguments) {
+    switch (u[0]) {
+      case "src": this.src = u[1];
+        break;
+      case "href": this.href = u[1];
+        break;
+      case "type": this.type = u[1];
+        break;
+      case "value":
+      case "val": this.value = u[1];
+        break;
+      default: this.setAttribute(u[0], u[1]);
+    }
+  }
+  return this;
+};
 Node.prototype.has = function (e) {
   this.appendChild(e);
   return this;
