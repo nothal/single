@@ -84,6 +84,18 @@ This function can be used for removing specified elements from its parent or all
 document.body.kill();
 //kill all child elements from body
 ```
+
+### props
+This can be used for adding attributes to an existing element, or during its creation with `make` method.
+```js
+let textfield = make("input#user.text-in");
+textfield.props(["name", "username"], ["type", "text"], ["value", "KennyMcDoll"]);
+
+// or
+
+let anchor = make("a#logo.link").props(["href", "index.html"]);
+```
+It is an alternative to `a(obj)` function.
 # Element Object
 these are all available data that one can give to an object to use with `a` and `an` function
 ### tag (must specify)
