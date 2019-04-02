@@ -7,7 +7,7 @@ Small JavaScript Library That Only Has One Purpose, To Simplify The Create Eleme
 <!-- example -->
 <script src="path/to/obj.js" type="text/javascript"></script>
 ```
-Contents
+# Contents
 
 | [Functions](#functions) | [Element Object](#element-object) |
 |---|---|
