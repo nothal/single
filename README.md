@@ -2,7 +2,23 @@
 Small JavaScript Library That Only Has One Purpose, To Simplify The Create Element Process.
 
 # Installation
-Download the file from this repo to your project directory and call the script normally
+[Download](https://github.com/nothal/obj.js/releases) the file from this repo to your project directory and call the script normally
+```html
+<!-- example -->
+<script src="path/to/obj.js" type="text/javascript"></script>
+```
+# Contents
+
+| [Functions](#functions) | [Element Object](#element-object) |
+|---|---|
+| [make](#make) | [tag](#tag-must-specify) |
+| [the/all](#the-all) | [id](#id) |
+| [a/an](#a-an) | [classes](#classes) |
+| [in](#in) | [text](#text) |
+| [has/have](#has-have) | [type](#type) |
+| [is/are](#is-are) | [name](#name) |
+| [kill](#kill) | [attributes](#attributes) |
+| [props](#props) | [children](#children) |
 
 # Functions
 Try avoid using any script that utilize functions with these names
