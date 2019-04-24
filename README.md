@@ -1,4 +1,4 @@
-# ![obj.js](https://www.flickr.com/photos/nonth/47684683731)
+# ![obj.js](https://live.staticflickr.com/65535/47684683731_cbdc489f49.jpg)
 Small JavaScript Library That Only Has One Purpose, To Simplify The Create Element Process.
 
 # Installation
