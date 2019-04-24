@@ -1,132 +1,145 @@
 HTMLElement.prototype.is = function() {
-  for(c of arguments) {
-    this.classList.add(c);
+  for (var i = 0; i < arguments.length; i++) {
+    this.classList.add(arguments[i]);
   }
-};
-HTMLElement.prototype.isnt = function() {
-  for(c of arguments) {
-    this.classList.remove(c);
-  }
-};
-HTMLElement.prototype.says = function(rd){
-  this.appendChild(document.createTextNode(rd));
   return this;
-}
-HTMLElement.prototype.kill = function(q) {
-  let v = arguments;
-  if (!v.length) {
+};
+
+HTMLElement.prototype.isnt = function() {
+  for (var i = 0; i < arguments.length; i++) {
+    this.classList.remove(arguments[i]);
+  }
+  return this;
+};
+
+HTMLElement.prototype.says = function(text){
+  this.appendChild(document.createTextNode(text));
+  return this;
+};
+
+HTMLElement.prototype.kill = function() {
+  if (!arguments.length) {
     v = this.children;
   }
-  for (u of v) {
-    this.removeChild(u);
+  for (var i = 0; i < arguments.length; i++) {
+    this.removeChild(arguments[i]);
   }
   return this;
 };
-HTMLElement.prototype.props = function(q) {
-  for (u of arguments) {
-    switch (u[0]) {
-      case "src": this.src = u[1];
+
+HTMLElement.prototype.props = function() {
+  for (var i = 0; i < arguments.length; i++) {
+    let attribute = arguments[i];
+    switch (attribute[0]) {
+      case "src": this.src = attribute[1];
         break;
-      case "href": this.href = u[1];
+      case "href": this.href = attribute[1];
         break;
-      case "type": this.type = u[1];
+      case "type": this.type = attribute[1];
         break;
       case "value":
-      case "val": this.value = u[1];
+      case "val": this.value = attribute[1];
         break;
       default: this.setAttribute(u[0], u[1]);
     }
   }
   return this;
 };
+
 Node.prototype.has = function (e) {
   this.appendChild(e);
   return this;
 };
+
 Node.prototype.in = function(e) {
   e.appendChild(this) ;
 };
+
 NodeList.prototype.are = function() {
-  let cs = arguments;
-  for(q of this) {
-    for(g of cs) {
-      q.is(g);
+  for (var i = 0; i < this.length; i++) {
+    for (var j = 0; j < arguments.length; j++) {
+      this[i].classList.add(arguments[j]);
     }
   }
 };
+
 NodeList.prototype.arent = function() {
-  let cs = arguments;
-  for(q of this) {
-    for(g of cs) {
-      q.isnt(g);
+  for (var i = 0; i < this.length; i++) {
+    for (var j = 0; j < arguments.length; j++) {
+      this[i].classList.remove(arguments[j]);
     }
   }
 };
-NodeList.prototype.say = function(r) {
-  for(e of this) {
-    e.appendChild(document.createTextNode(r));
+
+NodeList.prototype.say = function(text) {
+  for (var i = 0; i < this.length; i++) {
+    this[i].appendChild(document.createTextNode(text));
   }
   return this;
 };
-NodeList.prototype.have = function(c) {
-  let k = Array() ;
-  for(e of this) {
-    k.push(c.cloneNode(true));
-  }
-  for(var i = 0;i<k.length;i++) {
-    this[i].has(k[i]);
+
+NodeList.prototype.have = function(newNode) {
+  for (var i = 0; i < this.length; i++) {
+    this[i].has(newNode.cloneNode(true));
   }
   return this;
 };
-const a = function(z) {
-  let b = document.createElement(z.tag);
-  if(z.id) {
-    b.id = z.id;
+
+function a (elementObject) {
+  let newElement = document.createElement(elementObject.tag);
+  if(elementObject.id) {
+    newElement.id = elementObject.id;
   }
-  if(z.classes) {
-    for(c of z.classes) {
-      b.is(c);
+  if(elementObject.classes) {
+    for(c of elementObject.classes) {
+      newElement.is(c);
     }
   }
-  if(z.type) {
-    b.type = z.type;
+  if(elementObject.type) {
+    newElement.type = elementObject.type;
   }
-  if(z.name) {
-    b.name = z.name;
+  if(elementObject.name) {
+    newElement.name = elementObject.name;
   }
-  if(z.attributes) {
-    for(c of z.attributes) {
-      b.setAttribute(c.name, c.value);
+  if(elementObject.attributes) {
+    for (var i = 0; i < elementObject.attributes.length; i++) {
+      newElement.setAttribute(elementObject.attributes[i].name, elementObject.attributes[i].value);
     }
   }
-  if(z.text) {
-    b.innerHTML = z.text;
+  if(elementObject.text) {
+    newElement.innerHTML = elementObject.text;
   }
-  if(z.children) {
-    for(d of z.children) {
-      b.has(a(d));
+  if(elementObject.children) {
+    for (var i = 0; i < elementObject.children.length; i++) {
+      newElement.has(a(elementObject.children[i]));
     }
   }
-  return b;
-},
-an = a,
-all = function(s) {
-  let r = document.querySelectorAll(s) ;
-  if(r.length == 1) {
-    return r[0];
+  return newElement;
+}
+
+var an = a;
+
+function all (selector) {
+  let SelectedElements = document.querySelectorAll(selector);
+  if (SelectedElements.length < 1) {
+    return NULL;
+  }else if (SelectedElements.length == 1) {
+    return SelectedElements[0];
   }else {
-    return r;
+    return SelectedElements;
   }
-},
-the = function(s) {
-  let r = document.querySelector(s) ;
-  return r;
-},
-make = function(s) {
-  let c = s.split(".");
-  s = c.shift();
-  s = s.split("#");
-  let i = s[1];
-  let t = s[0];
-  return a({tag:t, id:i, classes:c}) ;
-};
+}
+
+function the (selector) {
+  let SelectedElement = document.querySelector(selector) ;
+  return SelectedElement;
+}
+
+function make (selector) {
+  let classes = selector.split(".");
+  selector = classes.shift();
+  selector = classes.split("#");
+  let identifier = selector[1];
+  let tag = selector[0];
+  return a({tag:tag, id:identifier, classes:classes}) ;
+}
