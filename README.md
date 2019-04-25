@@ -9,6 +9,7 @@ Small JavaScript Library That Only Has One Purpose, To Simplify The Create Eleme
 ```
 # Contents
 
+### standard functions
 | [Functions](#functions) | [Element Object](#element-object) |
 |---|---|
 | [make](#make) | [tag](#tag-must-specify) |
@@ -18,7 +19,7 @@ Small JavaScript Library That Only Has One Purpose, To Simplify The Create Eleme
 | [has/have](#has-have) | [type](#type) |
 | [is/are](#is-are) | [name](#name) |
 | [kill](#kill) | [attributes](#attributes) |
-| [props](#props) | [children](#children) |
+| [props](#prop-props) | [children](#children) |
 
 # Functions
 Try avoid using any script that utilize functions with these names
@@ -30,7 +31,7 @@ let fullSelector = "div#id.class.more-class";
 make(fullSelector);
 ```
 ### the, all
-For selecting existing elements. 
+For selecting existing elements.
 
 Use `the` to select one element.
 
@@ -53,9 +54,9 @@ let obj = {tag: "p", text: "This is a child"};
 an(obj);
 
 let newObject = {
-  tag: "div", 
-  id: "id", 
-  classes: ["class", "more-class"], 
+  tag: "div",
+  id: "id",
+  classes: ["class", "more-class"],
   children: [obj]
 };
 a(newObject);
@@ -95,13 +96,24 @@ all(boxes).are("very", "cool");
 note: like `has` and `have`, `is` and `are` ___cannot___ be used interchangeably.
 
 ### kill
-This function can be used for removing specified elements from its parent or all of its child elements
+This function can be used for removing the caller element
 ```js
-document.body.kill();
-//kill all child elements from body
+the("#unwanted").kill();
+//kill unwanted element
+all(".unwanted").kill();
+//kill all unwanted element
 ```
 
-### props
+### clear
+Use this function to clear all its content or remove specified contents inside the caller element
+```js
+the("#to-be-emptied").clear();
+//clear all of its contents
+the("#excessive-content").clear(the("#unwanted1"), the("#unwanted2"));
+// clear specific items inside itself, can be one or more items
+```
+
+### prop, props
 This can be used for adding attributes to an existing element, or during its creation with `make` method.
 ```js
 let textfield = make("input#user.text-in");
@@ -109,7 +121,7 @@ textfield.props(["name", "username"], ["type", "text"], ["value", "KennyMcDoll"]
 
 // or
 
-let anchor = make("a#logo.link").props(["href", "index.html"]);
+let anchor = make("a#logo.link").prop("href", "index.html");
 ```
 It is an alternative to `a(obj)` function.
 # Element Object

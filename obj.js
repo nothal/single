@@ -1,23 +1,27 @@
-HTMLElement.prototype.is = function() {
+Node.prototype.is = function() {
   for (var i = 0; i < arguments.length; i++) {
     this.classList.add(arguments[i]);
   }
   return this;
 };
 
-HTMLElement.prototype.isnt = function() {
+Node.prototype.isnt = function() {
   for (var i = 0; i < arguments.length; i++) {
     this.classList.remove(arguments[i]);
   }
   return this;
 };
 
-HTMLElement.prototype.says = function(text){
+Node.prototype.says = function(text){
   this.appendChild(document.createTextNode(text));
   return this;
 };
+Node.prototype.say = Node.prototype.says;
+Node.prototype.kill = function () {
+  this.remove();
+};
 
-HTMLElement.prototype.kill = function() {
+Node.prototype.clear = function() {
   if (!arguments.length) {
     v = this.children;
   }
@@ -27,32 +31,37 @@ HTMLElement.prototype.kill = function() {
   return this;
 };
 
-HTMLElement.prototype.props = function() {
-  for (var i = 0; i < arguments.length; i++) {
-    let attribute = arguments[i];
-    switch (attribute[0]) {
-      case "src": this.src = attribute[1];
-        break;
-      case "href": this.href = attribute[1];
-        break;
-      case "type": this.type = attribute[1];
-        break;
-      case "value":
-      case "val": this.value = attribute[1];
-        break;
-      default: this.setAttribute(u[0], u[1]);
-    }
+Node.prototype.prop = function(attribute, value) {
+  switch (attribute) {
+    case "src": this.src = value;
+      break;
+    case "href": this.href = value;
+      break;
+    case "type": this.type = value;
+      break;
+    case "value":
+    case "val": this.value = value;
+      break;
+    default: this.setAttribute(attribute, value);
   }
   return this;
 };
 
-Node.prototype.has = function (e) {
-  this.appendChild(e);
+Node.prototype.props = function() {
+  for (var i = 0; i < arguments.length; i++) {
+    this.prop(arguments[i][0], arguments[i][1]);
+  }
   return this;
 };
 
-Node.prototype.in = function(e) {
-  e.appendChild(this) ;
+Node.prototype.has = function (target) {
+  this.appendChild(target);
+  return this;
+};
+
+Node.prototype.in = function(target) {
+  target.appendChild(this) ;
+  return this;
 };
 
 NodeList.prototype.are = function() {
@@ -61,6 +70,7 @@ NodeList.prototype.are = function() {
       this[i].classList.add(arguments[j]);
     }
   }
+  return this;
 };
 
 NodeList.prototype.arent = function() {
@@ -69,11 +79,26 @@ NodeList.prototype.arent = function() {
       this[i].classList.remove(arguments[j]);
     }
   }
+  return this;
 };
 
 NodeList.prototype.say = function(text) {
   for (var i = 0; i < this.length; i++) {
     this[i].appendChild(document.createTextNode(text));
+  }
+  return this;
+};
+
+NodeList.prototype.kill = function () {
+  for (var i = 0; i < this.length; i++) {
+    this[i].remove();
+  }
+  return true;
+};
+
+NodeList.prototype.clear = function() {
+  for (var i = 0; i < this.length; i++) {
+    this[i].clear();
   }
   return this;
 };
@@ -85,14 +110,21 @@ NodeList.prototype.have = function(newNode) {
   return this;
 };
 
+NodeList.prototype.in = function(target) {
+  for (var i = 0; i < this.length; i++) {
+    target.appendChild(this[i]) ;
+  }
+  return this;
+};
+
 function a (elementObject) {
-  let newElement = document.createElement(elementObject.tag);
+  var newElement = document.createElement(elementObject.tag);
   if(elementObject.id) {
     newElement.id = elementObject.id;
   }
   if(elementObject.classes) {
-    for(c of elementObject.classes) {
-      newElement.is(c);
+    for (var i = 0; i < elementObject.classes.length; i++) {
+      newElement.is(elementObject.classes[i]);
     }
   }
   if(elementObject.type) {
@@ -120,7 +152,7 @@ function a (elementObject) {
 var an = a;
 
 function all (selector) {
-  let SelectedElements = document.querySelectorAll(selector);
+  var SelectedElements = document.querySelectorAll(selector);
   if (SelectedElements.length < 1) {
     return NULL;
   }else if (SelectedElements.length == 1) {
@@ -131,15 +163,15 @@ function all (selector) {
 }
 
 function the (selector) {
-  let SelectedElement = document.querySelector(selector) ;
+  var SelectedElement = document.querySelector(selector) ;
   return SelectedElement;
 }
 
 function make (selector) {
-  let classes = selector.split(".");
+  var classes = selector.split(".");
   selector = classes.shift();
   selector = classes.split("#");
-  let identifier = selector[1];
-  let tag = selector[0];
+  var identifier = selector[1];
+  var tag = selector[0];
   return a({tag:tag, id:identifier, classes:classes}) ;
 }
