@@ -22,7 +22,7 @@ Node.prototype.kill = function () {
 };
 
 Node.prototype.clear = function() {
-  let v = arguments;
+  var v = arguments;
   if (!v.length) {
     v = this.childNodes;
     while (v.length > 0) {

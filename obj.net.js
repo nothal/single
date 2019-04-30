@@ -44,3 +44,36 @@ XMLHttpRequest.prototype.incase = function (theCase, callback) {
   this.addEventListener(theCase, callback);
   return this;
 }
+function whisper(options){
+  var method = (options.method)? options.method : "post";
+  var place = options.to;
+  var data = options.data;
+  var success = options.success;
+  var wait = options.wait;
+  var fail = options.fail;
+  var xhttp = new XMLHttpRequest();
+  xhttp.open(method, place, true);
+  if (typeof data == "string") {
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  }else if (typeof data == "object") {
+    data = encodeURIComponent(JSON.stringify(data));
+    xhttp.setRequestHeader('Content-type', 'application/json');
+  }else {
+    xhttp.setRequestHeader('Content-type', 'multipart/form-data');
+  }
+  if (success) {
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        success(this.responseText, this.statusText, this);
+      }
+    };
+  }
+  if (wait) {
+    xhttp.addEventListener("loadstart", wait);
+  }
+  if (fail) {
+    this.addEventListener("error", fail);
+  }
+  xhttp.send(param);
+  return xhttp;
+}
