@@ -22,11 +22,16 @@ Node.prototype.kill = function () {
 };
 
 Node.prototype.clear = function() {
-  if (!arguments.length) {
+  let v = arguments;
+  if (!v.length) {
     v = this.childNodes;
-  }
-  for (var i = 0; i < arguments.length; i++) {
-    this.removeChild(arguments[i]);
+    while (v.length > 0) {
+      v[0].remove();
+    }
+  }else {
+    for (var i = 0; i < v.length; i++) {
+      v[i].remove();
+    }
   }
   return this;
 };
