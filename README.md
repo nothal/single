@@ -1,4 +1,5 @@
-# ![obj.js](https://live.staticflickr.com/65535/47684683731_cbdc489f49_m.jpg)
+![obj.js](https://live.staticflickr.com/65535/47684683731_cbdc489f49_m.jpg)
+# obj.js
 Small JavaScript Library That Only Has One Purpose, To Simplify The Create Element Process.
 
 # Installation
@@ -218,3 +219,9 @@ let obj = {
   children: [child1, child2]
 }
 ```
+
+![obj.net.js](https://live.staticflickr.com/65535/46827137095_73cebb677f_m.jpg)
+# obj.net.js
+A small JavaScript library to handle simple AJAX requests.
+
+__Manual coming soon.__
