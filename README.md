@@ -1,6 +1,8 @@
 ![obj.js](https://live.staticflickr.com/65535/47684683731_cbdc489f49_m.jpg)
-# obj.js
+# obj.js 
 Small JavaScript Library That Only Has One Purpose, To Simplify The Create Element Process.
+
+Go to [obj.net.js](#objnetjs)
 
 # Installation
 [Download](https://github.com/nothal/obj.js/releases) the file from this repo to your project directory and call the script normally
@@ -11,16 +13,16 @@ Small JavaScript Library That Only Has One Purpose, To Simplify The Create Eleme
 # Contents
 
 ### standard functions
-| [Functions](#functions) | [Element Object](#element-object) |
-|---|---|
-| [make](#make) | [tag](#tag-must-specify) |
-| [the/all](#the-all) | [id](#id) |
-| [a/an](#a-an) | [classes](#classes) |
-| [in](#in) | [text](#text) |
-| [has/have](#has-have) | [type](#type) |
-| [is/are](#is-are) | [name](#name) |
-| [kill](#kill) | [attributes](#attributes) |
-| [props](#prop-props) | [children](#children) |
+| [Functions](#functions) | [Element Object](#element-object) | [obj.net.js](#objnetjs) |
+|---|---|---|
+| [make](#make) | [tag](#tag-must-specify) | [when](#when) |
+| [the/all](#the-all) | [id](#id) | [then, meanwhile](#then-meanwhile) |
+| [a/an](#a-an) | [classes](#classes) |[incase](#incase) |
+| [in](#in) | [text](#text) ||
+| [has/have](#has-have) | [type](#type) ||
+| [is/are](#is-are) | [name](#name) ||
+| [kill](#kill) | [attributes](#attributes) ||
+| [props](#prop-props) | [children](#children) ||
 
 # Functions
 Try avoid using any script that utilize functions with these names
@@ -224,4 +226,45 @@ let obj = {
 # obj.net.js
 A small JavaScript library to handle simple AJAX requests.
 
-__Manual coming soon.__
+__Caution: this module is experimental.__
+
+Go back to [obj.js](#objjs)
+
+# Functions
+
+### when
+Send XMLHttpRequest to server destination, and then execute the function with `responseText` and `statusText`
+```js
+var runThisFunction = function(){
+  // function content
+};
+var toBackEnd = "path/to/backend";
+var requests = "data=1";
+runThisFunction.when("post", toBackEnd, requests);
+```
+note: the request parameters can be in either urlencoded or JSON object, but your backend have to handle it properly.
+
+### then, meanwhile
+Add functions to execute while loading data and when finished loading.
+```js
+function executeThis(){
+  // Things to do after the request is done.
+}
+function waitForIt(){
+  // Things to do while loading the request.
+}
+
+runThisFunction.when("post", toBackEnd, requests).then(executeThis).meanwhile(waitForIt);
+```
+
+### incase
+Add a function to execute when the event triggered
+```js
+function freakOut(){
+  // Things to do when error.
+}
+runThisFunction.when("post", toBackEnd, requests).incase("error", freakOut);
+```
+
+note: this function acts as a `addEventListener`, you can add any event `XMLHttpRequest` supports. 
+See [documentation](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#Events).
