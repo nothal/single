@@ -54,13 +54,25 @@ Node.prototype.prop = function(attribute, value) {
 
 Node.prototype.props = function() {
   for (var i = 0; i < arguments.length; i++) {
-    this.prop(arguments[i][0], arguments[i][1]);
+    if (arguments[0].constructor == Array) {
+      for (var j = 0; j < arguments.length; j++) {
+        this.prop(arguments[j][0], arguments[j][1]);
+      }
+    }else if (arguments[i].constructor == Object) {
+      for (var key in arguments[i]) {
+        this.prop(key, arguments[i][key]);
+      }
+    }
   }
   return this;
 };
 
 Node.prototype.has = function (target) {
-  this.appendChild(target);
+  if (typeof target == "String") {
+    this.appendChild(make(target));
+  }else {
+    this.appendChild(target);
+  }
   return this;
 };
 
@@ -175,7 +187,7 @@ function the (selector) {
 function make (selector) {
   var classes = selector.split(".");
   selector = classes.shift();
-  selector = classes.split("#");
+  selector = selector.split("#");
   var identifier = selector[1];
   var tag = selector[0];
   return a({tag:tag, id:identifier, classes:classes}) ;
