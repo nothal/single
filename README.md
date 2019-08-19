@@ -113,6 +113,7 @@ title.in(document.body);
 ```
 
 __QUESTION__: Why `says` append the existed text in the container?
+
 __ANSWER__: I'm working on that, but now you'll have to use `clear` before you use `says` to clear old contents first.
 
 #### 2. Removing content with `clear` and `kill`
@@ -184,6 +185,7 @@ the("#element").members // returns an array of all direct members.
 ```js
 the("#element").root() // return its container that is directly under body.
 ```
+
 ----
 # OLD MANUAL
 # Functions
