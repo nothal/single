@@ -102,7 +102,7 @@ You can also use `prop` and `props` to set event listener.
 ### Content Manipulation
 We have 3 things that we can do to manipulate content using obj.js. 
 
-1. Adding and moving content with `in`, `has`, and `says`
+#### 1. Adding and moving content with `in`, `has`, and `says`
 ```js
 var title = the("#title").says("Hello");
 document.body.has(title);
@@ -111,11 +111,11 @@ title.in(document.body);
 // so title, in this case, is the element that has the id `title`, not the string "Hello"
 // thus allowing us to pass it as a parameter to `has()`.
 ```
-__QUESTION__: Why `says` append the existed text in the container?
 
+__QUESTION__: Why `says` append the existed text in the container?
 __ANSWER__: I'm working on that, but now you'll have to use `clear` before you use `says` to clear old contents first.
 
-2. Removing content with `clear` and `kill`
+#### 2. Removing content with `clear` and `kill`
 Use `clear` to clear the content of the container
 Use `kill` to kill the container
 ```js
@@ -126,11 +126,12 @@ We can also pass elements as parameters to `clear` to remove those elements from
 ```js
 the("#container").clear(the("#text1"), the("#text2"), the("#text3"));
 ```
+
 __QUESTION__: How to kill multiple an elements?
 
 __ANSWER__: You can use clear on its container and specify the elements you want to remove.
 
-3. Clone content with `cloneTo`, and `cloneHere` \[*New in v0.0.8*\]
+#### 3. Clone content with `cloneTo`, and `cloneHere` \[*New in v0.0.8*\]
 It is not something we use a lot, but it's nice to know that we can. To clone an element to another place, do the following
 ```js
 the("#cell").cloneTo(the("#other-cell")); // to clone an element and place it inside a container
