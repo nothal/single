@@ -71,7 +71,10 @@ Element.prototype.props = function() {
   }
   return this;
 };
-
+HTMLElement.prototype.on = function (action, func) {
+  this.addEventListener(action, func);
+  return this;
+};
 Node.prototype.has = function () {
   var v = arguments;
   for (var i in v) {
@@ -89,8 +92,37 @@ Node.prototype.in = function(target) {
   target.appendChild(this) ;
   return this;
 };
-Node.prototype.container = function () {
-  return this.parentNode;
+Element.prototype.container = function () {
+  return this.parentElement;;
+}
+
+Node.prototype.cloneTo = function() {
+  var v = arguments;
+  for (var i in v) {
+    if (v[i].constructor == NodeList || v.constructor == Array) {
+      for (var j in v[i]) {
+        v[i][j].has(this.cloneNode(true));
+      }
+    }
+    v[i].has(this.cloneNode(true));
+  }
+  return this;
+};
+Node.prototype.cloneHere = function(times) {
+  times = (times)? times : 1;
+  while (times > 0) {
+    var clonned = this.cloneNode(true);
+    clonned.id = this.id + times;
+    clonned.is("clonned");
+    this.container().has(clonned);
+    times--;
+  }
+  var csel = "";
+  var cnms = this.className.split(/\s+/g);
+  for (var c in cnms) {
+    csel += (cnms[c] == "")? "" : "." + cnms[c];
+  }
+  return all(this.tagName.toLowerCase() + csel + ".clonned");
 };
 NodeList.prototype.are = function() {
   for (var i in this) {
@@ -144,7 +176,12 @@ NodeList.prototype.in = function(target) {
   }
   return this;
 };
-
+NodeList.prototype.on = function (action, func) {
+  for (var i in this) {
+    this[i].on(action, func);
+  }
+  return this;
+};
 function a (elem) {
   var newE = null;
   if (typeof elem == "string") {
