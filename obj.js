@@ -1,27 +1,36 @@
-Node.prototype.is = function() {
-  for (var i = 0; i < arguments.length; i++) {
+Element.prototype.called = function(id) {
+  if (id != null) {
+    this.id = id;
+  }else {
+    return this.id;
+  }
+  return this;
+}
+
+Element.prototype.is = function() {
+  for (var i in arguments) {
     this.classList.add(arguments[i]);
   }
   return this;
 };
 
-Node.prototype.isnt = function() {
-  for (var i = 0; i < arguments.length; i++) {
+Element.prototype.isnt = function() {
+  for (var i in arguments) {
     this.classList.remove(arguments[i]);
   }
   return this;
 };
 
-Node.prototype.says = function(text){
+Element.prototype.says = function(text){
   this.appendChild(document.createTextNode(text));
   return this;
 };
-Node.prototype.say = Node.prototype.says;
-Node.prototype.kill = function () {
+Element.prototype.say = Node.prototype.says;
+Element.prototype.kill = function () {
   this.remove();
 };
 
-Node.prototype.clear = function() {
+Element.prototype.clear = function() {
   var v = arguments;
   if (!v.length) {
     v = this.childNodes;
@@ -29,49 +38,49 @@ Node.prototype.clear = function() {
       v[0].remove();
     }
   }else {
-    for (var i = 0; i < v.length; i++) {
+    for (var i in v) {
       v[i].remove();
     }
   }
   return this;
 };
 
-Node.prototype.prop = function(attribute, value) {
-  switch (attribute) {
-    case "src": this.src = value;
-      break;
-    case "href": this.href = value;
-      break;
-    case "type": this.type = value;
-      break;
-    case "value":
-    case "val": this.value = value;
-      break;
-    default: this.setAttribute(attribute, value);
+Element.prototype.prop = function(attribute, value) {
+  if (attribute.match("data-")) {
+    this.setAttribute(attribute, value);
+  }else {
+    this[attribute] = value;
   }
   return this;
 };
-
-Node.prototype.props = function() {
-  for (var i = 0; i < arguments.length; i++) {
-    if (arguments[0].constructor == Array) {
-      for (var j = 0; j < arguments.length; j++) {
-        this.prop(arguments[j][0], arguments[j][1]);
+Element.prototype.data = function (name, value) {
+  this.dataset[name] = value;
+};
+Element.prototype.props = function() {
+  var v = arguments;
+  for (var i in v) {
+    if (v[0].constructor == Array) {
+      for (var j in v.length) {
+        this.prop(v[j][0], v[j][1]);
       }
-    }else if (arguments[i].constructor == Object) {
-      for (var key in arguments[i]) {
-        this.prop(key, arguments[i][key]);
+    }else if (v[i].constructor == Object) {
+      for (var k in v[i]) {
+        this.prop(k, v[i][k]);
       }
     }
   }
   return this;
 };
 
-Node.prototype.has = function (target) {
-  if (typeof target == "String") {
-    this.appendChild(make(target));
-  }else {
-    this.appendChild(target);
+Node.prototype.has = function () {
+  var v = arguments;
+  for (var i in v) {
+    var t = v[i];
+    if (typeof t == "String") {
+      this.appendChild(make(t));
+    }else {
+      this.appendChild(t);
+    }
   }
   return this;
 };
@@ -80,10 +89,12 @@ Node.prototype.in = function(target) {
   target.appendChild(this) ;
   return this;
 };
-
+Node.prototype.container = function () {
+  return this.parentNode;
+};
 NodeList.prototype.are = function() {
-  for (var i = 0; i < this.length; i++) {
-    for (var j = 0; j < arguments.length; j++) {
+  for (var i in this) {
+    for (var j in arguments) {
       this[i].classList.add(arguments[j]);
     }
   }
@@ -91,8 +102,8 @@ NodeList.prototype.are = function() {
 };
 
 NodeList.prototype.arent = function() {
-  for (var i = 0; i < this.length; i++) {
-    for (var j = 0; j < arguments.length; j++) {
+  for (var i in this) {
+    for (var j in arguments) {
       this[i].classList.remove(arguments[j]);
     }
   }
@@ -100,95 +111,104 @@ NodeList.prototype.arent = function() {
 };
 
 NodeList.prototype.say = function(text) {
-  for (var i = 0; i < this.length; i++) {
+  for (var i in this) {
     this[i].appendChild(document.createTextNode(text));
   }
   return this;
 };
 
 NodeList.prototype.kill = function () {
-  for (var i = 0; i < this.length; i++) {
+  for (var i in this) {
     this[i].remove();
   }
   return true;
 };
 
 NodeList.prototype.clear = function() {
-  for (var i = 0; i < this.length; i++) {
+  for (var i in this) {
     this[i].clear();
   }
   return this;
 };
 
 NodeList.prototype.have = function(newNode) {
-  for (var i = 0; i < this.length; i++) {
+  for (var i in this) {
     this[i].has(newNode.cloneNode(true));
   }
   return this;
 };
 
 NodeList.prototype.in = function(target) {
-  for (var i = 0; i < this.length; i++) {
+  for (var i in this) {
     target.appendChild(this[i]) ;
   }
   return this;
 };
 
-function a (elementObject) {
-  var newElement = document.createElement(elementObject.tag);
-  if(elementObject.id) {
-    newElement.id = elementObject.id;
-  }
-  if(elementObject.classes) {
-    for (var i = 0; i < elementObject.classes.length; i++) {
-      newElement.is(elementObject.classes[i]);
+function a (elem) {
+  var newE = null;
+  if (typeof elem == "string") {
+    newE = document.createElement(elem);
+  }else {  // DEPRECATED
+    newE = document.createElement(elem.tag);
+    if(elem.id) {
+      newE.id = elem.id;
+    }
+    if(elem.classes) {
+      for (var i in elem.classes) {
+        newE.is(elem.classes[i]);
+      }
+    }
+    if(elem.type) {
+      newE.type = elem.type;
+    }
+    if(elem.name) {
+      newE.name = elem.name;
+    }
+    if(elem.attributes) {
+      for (var i in elem.attributes) {
+        newE.setAttribute(elem.attributes[i].name, elem.attributes[i].value);
+      }
+    }
+    if(elem.text) {
+      newE.innerHTML = elem.text;
+    }
+    if(elem.children) {
+      for (var i in elem.children) {
+        newE.has(a(elem.children[i]));
+      }
     }
   }
-  if(elementObject.type) {
-    newElement.type = elementObject.type;
-  }
-  if(elementObject.name) {
-    newElement.name = elementObject.name;
-  }
-  if(elementObject.attributes) {
-    for (var i = 0; i < elementObject.attributes.length; i++) {
-      newElement.setAttribute(elementObject.attributes[i].name, elementObject.attributes[i].value);
-    }
-  }
-  if(elementObject.text) {
-    newElement.innerHTML = elementObject.text;
-  }
-  if(elementObject.children) {
-    for (var i = 0; i < elementObject.children.length; i++) {
-      newElement.has(a(elementObject.children[i]));
-    }
-  }
-  return newElement;
+  return newE;
 }
 
 var an = a;
 
 function all (selector) {
-  var SelectedElements = document.querySelectorAll(selector);
-  if (SelectedElements.length < 1) {
+  var SelectedE = document.querySelectorAll(selector);
+  if (SelectedE.length < 1) {
     return NULL;
-  }else if (SelectedElements.length == 1) {
-    return SelectedElements[0];
+  }else if (SelectedE.length == 1) {
+    return SelectedE[0];
   }else {
-    return SelectedElements;
+    return SelectedE;
   }
 }
 
 function the (selector) {
-  var SelectedElement = document.querySelector(selector) ;
-  return SelectedElement;
+  var SelectedE = document.querySelector(selector) ;
+  return SelectedE;
 }
 
-function make (selector) {
+function make (selector) { // DEPRECATED
   var classes = selector.split(".");
   selector = classes.shift();
   selector = selector.split("#");
   var identifier = selector[1];
   var tag = selector[0];
   return a({tag:tag, id:identifier, classes:classes}) ;
+}
+
+function is(ele, className){
+  return ele.classList.contains(className);
 }
