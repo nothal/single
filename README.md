@@ -59,10 +59,10 @@ This method is deprecated, if you want to use it, jump to [How to use make in ob
 
 # Manipulating Element
 We can do 4 main thing to manipulate an element
-1. class manipulation
-2. property manipulation
-3. event manipulation
-4. content manipulation
+1. [class manipulation](#class-manipulation)
+2. [property manipulation](#property-manipulation)
+3. [event manipulation](#event-manipulation)
+4. [content manipulation](#content-manipulation)
 
 ### Class Manipulation
 To manipulate class, we have 2 functions to use, `is` and `isnt` to add/remove classes.
@@ -183,6 +183,8 @@ the("#element").members // returns an array of all direct members.
 ```js
 the("#element").root() // return its container that is directly under body.
 ```
+----
+# OLD MANUAL
 # Functions
 Try avoid using any script that utilize functions with these names
 
