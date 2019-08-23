@@ -46,11 +46,7 @@ Element.prototype.clear = function() {
 };
 
 Element.prototype.prop = function(attribute, value) {
-  if (attribute.match("data-")) {
-    this.setAttribute(attribute, value);
-  }else {
-    this[attribute] = value;
-  }
+  this.setAttribute(attribute, value);
   return this;
 };
 Element.prototype.data = function (name, value) {
@@ -248,4 +244,7 @@ function make (selector) { // DEPRECATED
 
 function is(ele, className){
   return ele.classList.contains(className);
+}
+function svg(element = "svg") {
+  return document.createElementNS("http://www.w3.org/2000/svg", element);
 }
