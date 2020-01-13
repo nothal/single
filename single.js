@@ -4,6 +4,37 @@ function the(sel) {
 function a(tag) {
   return document.createElement(tag);
 }
+const one = {
+  before: function (elem) {
+    return (typeof elem == "string")? document.querySelector(elem).previousElementSibling : elem.previousElementSibling;
+  },
+  after: function (elem) {
+    return (typeof elem == "string")? document.querySelector(elem).nextElementSibling : elem.nextElementSibling;
+  },
+  above: function (elem) {
+    return (typeof elem == "string")? document.querySelector(elem).parentElement : elem.parentElement;
+  },
+  within: function (elem) {
+    return (typeof elem == "string")? document.querySelector(elem).children[0] : elem.children[0];
+  }
+};
+function pic(set, fallback) {
+  var pictureSet = a("picture");
+  for (var res in set) {
+    if (set.hasOwnProperty(res)) {
+      pictureSet.has(a("source").set({srcset: set[res], media: res}))
+    }
+  }
+  if (fallback instanceof HTMLImageElement) {
+    pictureSet.has(fallback);
+  }else if (typeof fallback == "object") {
+    let fba = (fallback.alt)? fallback.alt : "" ;
+    pictureSet.has(a("img").set({src: fallback.src, alt: fba}))
+  }else if (typeof fallback == "string") {
+    pictureSet.has(a("img").set({src: fallback}))
+  }
+  return pictureSet;
+}
 HTMLElement.prototype.as = function (id) {
   this.id = id;
   return this;
@@ -37,11 +68,11 @@ Node.prototype.clear = function () {
   return this;
 };
 Node.prototype.says = function (txt) {
-  this.appendChild(document.createTextNode(text));
+  this.appendChild(document.createTextNode(txt));
   return this;
 };
 Node.prototype.text = function (txt) {
-  this.clear().appendChild(document.createTextNode(text));
+  this.clear().appendChild(document.createTextNode(txt));
   return this;
 };
 Node.prototype.set = function (attr) {
