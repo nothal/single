@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>single.basic demo</title>
+  </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/ir-black.min.css">
+  <style media="screen">
+    :root{
+      color-scheme: light dark;
+      --text: #000;
+      --link: #666;
+      --bg: #fff;
+      --s-item-border: #ccc;
+      --s-placeholder: #ddd;
+      --s-f-placeholder: #fff;
+      --s-check-border: #ccc;
+      --s-check-circle: #fff;
+      --s-check-mark: #000;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #ddd;
+        --link: #888;
+        --bg: #111;
+        --s-item-border: #333;
+        --s-placeholder: #666;
+        --s-f-placeholder: #111;
+        --s-check-border: #666;
+        --s-check-circle: #111;
+        --s-check-mark: #ddd;
+      }
+    }
+    body{
+      background: var(--bg);
+      color: var(--text);
+    }
+    #wordmark {
+      font: 700 3.5em "Source Code Pro", monospace;
+      letter-spacing: -4px;
+    }
+    #wordmark > picture > img {
+      height: 52px;
+      margin-bottom: -10px;
+    }
+    .impression{
+      font: 300 1em sans-serif;
+    }
+    .demo-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .shopping-item {
+      border: 1px solid var(--s-item-border);
+      display: flex;
+      overflow: hidden;
+    }
+    .shopping-item + .shopping-item {
+      border-top: none;
+    }
+    .shopping-item:first-child {
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+    .shopping-item:last-child {
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+    .item-name {
+      background: var(--bg);
+      color: var(--text);
+      border: none;
+      padding: 6px;
+      font: 300 1.6em sans-serif;
+      flex: 1 0;
+    }
+    .item-name.crossed{
+      text-decoration: line-through;
+      color: #aaa;
+    }
+    ::placeholder{
+      color: var(--s-placeholder);
+    }
+    .item-name:focus{
+      outline: none;
+    }
+    .item-name:focus::placeholder{
+      color: var(--s-f-placeholder);
+    }
+    input.checkbox{
+      position: relative;
+      width: 25px;
+      height: 25px;
+      margin: 8px 0px 0px 8px;
+    }
+    input.checkbox::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: var(--s-check-circle);
+      border-radius: 13px;
+      border: 2px solid var(--s-check-border);
+      box-sizing: border-box;
+    }
+    input.checkbox::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0px;
+      height: 0px;
+      box-sizing: border-box;
+      opacity: 0;
+      border-left: 3px solid var(--s-check-mark);
+      border-bottom: 3px solid var(--s-check-mark);
+      margin-left: -7px;
+      margin-top: 0px;
+      transform: rotate(-45deg);
+      transform-origin: top left;
+      transition: height 0.1s, width 0.3s 0.1s;
+    }
+    input.checkbox:checked::before {
+      border-color: var(--s-check-mark);
+    }
+    input.checkbox:checked::after {
+      opacity: 1;
+      width: 12px;
+      height: 8px;
+    }
+    input.checkbox:disabled::before{
+      border-color: transparent;
+    }
+    .code-reveal {
+      background: transparent;
+      border: none;
+      font-size: 1em;
+      color: var(--link);
+    }
+    .code-reveal:hover{
+      color: var(--text);
+      text-decoration: underline;
+    }
+    .code-reveal:active{
+      color: -webkit-link-visited;
+      text-decoration: underline;
+    }
+    .code-reveal:focus{
+      outline: none;
+    }
+    @media screen and (min-width: 860px) {
+      section.demo-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: stretch;
+      }
+      .demo-header{
+        display: flex;
+        justify-content: space-between;
+        flex: 1 0 100%;
+      }
+      .demo, .demo-code{
+        flex: 1 1 calc(50% - 8px);
+      }
+      .demo-code{
+        overflow: hidden;
+        flex: 0 1 0px;
+        transition: flex 0.5s;
+      }
+      .demo-code.code-revealed{
+        flex: 1 1 calc(50% - 8px);
+        margin-left: 12px;
+        overflow: auto;
+      }
+      .demo-code > pre{
+        height: 100%;
+      }
+      .demo-code > pre > code, .demo-code > pre {
+        margin: 0px;
+        box-sizing: border-box;
+      }
+    }
+    @media screen and (max-width: 860px) {
+      .demo-code{
+        overflow: hidden;
+        height: 0px;
+        transition: 0.5s;
+      }
+      .demo-code > pre{
+        margin: 0px;
+      }
+      .demo-code.code-revealed{
+        height: 300px;
+        margin-top: 12px;
+        overflow: auto;
+      }
+    }
+  </style>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/javascript.min.js" charset="utf-8"></script>
+    <script src="single.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var si = 0;
+      var header = a("header").as("header").is("header").has(
+        a("div").as("wordmark").is("impression").set({alt: "single."}).has(pic({"(min-width: 360px)": "images/wordmark.svg"}, "images/icon.svg")).says("basic"),
+        a("div").as("motto").is("impression").says("short. simple. semantic.")
+      );
+      var main = a("main").as("demo-area").is("demo-area").has(
+        a("section").is("demo-group").has(
+          a("header").as("shopping-list-header").is("demo-header").has(
+            a("h1").as("shopping-list-demo-name").is("demo-name").says("Shopping List"),
+            a("button").as("shopping-list-code").is("code-reveal").says("show code").on("click", showCode)
+          ),
+          a("section").as("shopping-list").is("demo").has(
+            shoppingItem(si)
+          ),
+          a("section").as("shopping-list-code-body").is("demo-code").has(
+            a("pre").has(
+              a("code").is("js").says(addShoppingItem),
+              a("code").is("js").says(removeBlankItem),
+              a("code").is("js").says(crossOut),
+              a("code").is("js").says(shoppingItem)
+            )
+          )
+        ),
+      );
+      document.body.has(header, main);
+      function darkmode() {
+        document.body.classList.toggle("dark");
+      }
+      function showCode(e) {
+        the(`#${e.target.id}-body`).classList.toggle("code-revealed");
+      }
+      function crossOut(e) {
+        var target = the(`#${e.target.id}-name`);
+        if (e.target.checked) {
+          target.is("crossed");
+        }else {
+          target.isnt("crossed");
+        }
+      }
+      function addShoppingItem(e) {
+        if (e.target.value == ""){
+          the("#shopping-list").has(shoppingItem(si));
+        }
+      }
+      function removeBlankItem(e) {
+        var checkbox = one.before(e.target);
+        if (e.target.value == ""){
+          checkbox.disabled = true;
+          the(".shopping-item:last-child").remove();
+        }else {
+          checkbox.disabled = false;
+        }
+      }
+      function shoppingItem(count = si) {
+        var item = a("div").as(`item${count}`).is("shopping-item").has(
+          a("input").as(`itm-${count}`).is("checkbox")
+            .set({type: "checkbox", disabled: true})
+            .on("click", crossOut),
+          a("input").as(`itm-${count}-name`).is("item-name")
+            .set({type: "text", placeholder: "Add new item"})
+            .on("focus", addShoppingItem)
+            .on("blur", removeBlankItem)
+        )
+        si++;
+        return item;
+      }
+      hljs.initHighlightingOnLoad();
+    </script>
+  </body>
+</html>
