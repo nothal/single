@@ -10,17 +10,17 @@ A more meaningful JavaScript syntax starts here.
 In order to use single, you have to understand the concept of single.
 Single is a JavaScript library that expands the functionality of HTML Element, what it does is attaching its functions to the HTML Element prototype, so it can be called directly without using special function first. In HTML Element, there are a lot of properties already exists, so we cannot add functions with the same name to the element prototype, instead we have list of functions that can be called directly on element
 
-|name |description |parameters required |
-| --- | --- | --- |
-| __as__ | used for modifying element's ID | only 1 string |
-| __clear__ | used for emptying an element's content | no parameters |
-| __has__ | used for appending element to a container element | 1 or more elements |
-| __is__ | used for adding classes to an element | 1 or more strings |
-| __isnt__ | used for removing classes from an element | 1 or more strings |
-| __on__ | used for adding event listener to element | 1 object |
-| __says__ | used for appending text to an element | only 1 string |
-| __set__ | used for setting other attributes for an element | 1 object |
-| __text__ | used for replacing everything in an element with text | only 1 string |
+| function | used for | parameters required | chainable | sample |
+| :--- | :--- | :--- | :---: | :--- |
+| __as__ | modifying element's ID | only 1 string | ✔️ | `single.as("id")` |
+| __clear__ | emptying an element's content | no parameters | ✔️ | `single.clear()` |
+| __has__ | appending element to a container element | 1 or more elements | ✔️ | `single.has(a("div"))` |
+| __is__ | adding classes to an element | 1 or more strings | ✔️ | `single.is("simple")` |
+| __isnt__ | removing classes from an element | 1 or more strings | ✔️ | `single.isnt("hard")` |
+| __on__ | adding event listener to element | 1 object | ✔️ | `single.on({load: init})` |
+| __says__ | appending text to an element | only 1 string | ✔️ | `single.says("Hello")` |
+| __set__ | setting other attributes for an element | 1 object | ✔️ | `single.set({type: "text"})` |
+| __text__ | replacing everything in an element with text | only 1 string | ✔️ | `single.text("Hello")` |
 
 # Single Sample Code
 A function for creating template element
@@ -92,7 +92,7 @@ function itemTemplate(itemObject){
 
   price.id = `${itemObject.id}-price`;
   price.innerHTML = itemObject.price;
-  price.classList.add("product-price")
+  price.classList.add("product-price");
 
   item.appendChild(image);
   item.appendChild(name);
