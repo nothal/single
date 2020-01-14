@@ -10,29 +10,30 @@ A more meaningful JavaScript syntax starts here.
 In order to use single, you have to understand the concept of single.
 Single is a JavaScript library that expands the functionality of HTML Element, what it does is attaching its functions to the HTML Element prototype, so it can be called directly without using special function first. In HTML Element, there are a lot of properties already exists, so we cannot add functions with the same name to the element prototype, instead we have list of functions that can be called directly on element
 
-| function | used for | parameters required | chainable | sample |
-| :--- | :--- | :--- | :---: | :--- |
-| __as__ | modifying element's ID | 1 string | ✔️ | `single.as("id")` |
-| __clear__ | emptying an element's content | no parameters | ✔️ | `single.clear()` |
-| __has__ | appending element to a container element | 1 or more elements | ✔️ | `single.has(a("div"))` |
-| __is__ | adding classes to an element | 1 or more strings | ✔️ | `single.is("simple")` |
-| __isnt__ | removing classes from an element | 1 or more strings | ✔️ | `single.isnt("hard")` |
-| __on__ | adding event listener to element | 1 object | ✔️ | `single.on({load: init})` |
-| __says__ | appending text to an element | 1 string | ✔️ | `single.says("Hello")` |
-| __set__ | setting other attributes for an element | 1 object | ✔️ | `single.set({type: "text"})` |
-| __text__ | replacing everything in an element with text | 1 string | ✔️ | `single.text("Hello")` |
+| function | used for | parameters required | ⛓ | <img src="https://image.flaticon.com/icons/png/128/427/427513.png" width="24" height="24"> | sample |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| __as__ | modifying element's ID | 1 string | ✔️ | ❌ | `single.as("id")` |
+| __clear__ | emptying an element's content | no parameters | ✔️ | ❌ | `single.clear()` |
+| __has__ | appending element to a container element | 1 or more elements | ✔️ | ✔️ | `single.has(a("div"))` |
+| __is__ | adding classes to an element | 1 or more strings | ✔️ | ❌ | `single.is("simple")` |
+| __isnt__ | removing classes from an element | 1 or more strings | ✔️ | ❌ | `single.isnt("hard")` |
+| __on__ | adding event listener to element | 1 object | ✔️ | ❌ | `single.on({load: init})` |
+| __says__ | appending text to an element | 1 string | ✔️ | ❌ | `single.says("Hello")` |
+| __set__ | setting other attributes for an element | 1 object | ✔️ | ❌ | `single.set({type: "text"})` |
+| __text__ | replacing everything in an element with text | 1 string | ✔️ | ❌ | `single.text("Hello")` |
 
+please note that these functions cannot be used to start the function chain, it has to be chained with variable or functions that return element.
 ### Standalone functions
 These are functions which start the chain, all chainable functions can be used on them, and you must not use any of these names for any of your variables or functions as they will break the program.
 
-| function | used for | parameters required | nestable |  sample |
-| :--- | :--- | :--- | :---: | :--- |
-| __a__ | creating a new HTML5 element | 1 string | ❌ | `a("div")` |
-| __the__ | selecting one HTML5 element | 1 string | ❌ | `the("#single")` |
-| __one.before__ | traversing same level DOM tree | 1 string or element | ✔️ | `one.before("#single")` |
-| __one.after__ | traversing same level DOM tree | 1 string or element | ✔️ | `one.after("#single")` |
-| __one.above__ | traversing up DOM tree | 1 string or element | ✔️ | `one.above("#single")` |
-| __one.within__ | traversing down DOM tree | 1 string or element | ✔️ | `one.within("#single")` |
+| function | used for | parameters required | 🔗 | <img src="https://image.flaticon.com/icons/png/128/427/427513.png" width="24" height="24"> |  sample |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| __a__ | creating a new HTML5 element | 1 string | ✔️ | ❌ | `a("div")` |
+| __the__ | selecting one HTML5 element | 1 string | ✔️ | ❌ | `the("#single")` |
+| __one.before__ | traversing same level DOM tree | 1 string or element | ✔️ | ✔️ | `one.before("#single")` |
+| __one.after__ | traversing same level DOM tree | 1 string or element | ✔️ | ✔️ | `one.after("#single")` |
+| __one.above__ | traversing up DOM tree | 1 string or element | ✔️ | ✔️ | `one.above("#single")` |
+| __one.within__ | traversing down DOM tree | 1 string or element | ✔️ | ✔️ | `one.within("#single")` |
 
 # Single Sample Code
 A function for creating template element
