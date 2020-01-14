@@ -2,202 +2,204 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>single.basic demo</title>
-  </head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/ir-black.min.css">
-  <style media="screen">
-    :root{
-      color-scheme: light dark;
-      --text: #000;
-      --link: #666;
-      --bg: #fff;
-      --s-item-border: #ccc;
-      --s-placeholder: #ddd;
-      --s-f-placeholder: #fff;
-      --s-check-border: #ccc;
-      --s-check-circle: #fff;
-      --s-check-mark: #000;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --text: #ddd;
-        --link: #888;
-        --bg: #111;
-        --s-item-border: #333;
-        --s-placeholder: #666;
-        --s-f-placeholder: #111;
-        --s-check-border: #666;
-        --s-check-circle: #111;
-        --s-check-mark: #ddd;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/ir-black.min.css">
+    <style media="screen">
+      :root{
+        color-scheme: light dark;
+        --text: #000;
+        --link: #666;
+        --bg: #fff;
+        --s-item-border: #ccc;
+        --s-placeholder: #ddd;
+        --s-f-placeholder: #fff;
+        --s-check-border: #ccc;
+        --s-check-circle: #fff;
+        --s-check-mark: #000;
       }
-    }
-    body{
-      background: var(--bg);
-      color: var(--text);
-    }
-    #wordmark {
-      font: 700 3.5em "Source Code Pro", monospace;
-      letter-spacing: -4px;
-    }
-    #wordmark > picture > img {
-      height: 52px;
-      margin-bottom: -10px;
-    }
-    .impression{
-      font: 300 1em sans-serif;
-    }
-    .demo-header{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .shopping-item {
-      border: 1px solid var(--s-item-border);
-      display: flex;
-      overflow: hidden;
-    }
-    .shopping-item + .shopping-item {
-      border-top: none;
-    }
-    .shopping-item:first-child {
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
-    }
-    .shopping-item:last-child {
-      border-bottom-left-radius: 6px;
-      border-bottom-right-radius: 6px;
-    }
-    .item-name {
-      background: var(--bg);
-      color: var(--text);
-      border: none;
-      padding: 6px;
-      font: 300 1.6em sans-serif;
-      flex: 1 0;
-    }
-    .item-name.crossed{
-      text-decoration: line-through;
-      color: #aaa;
-    }
-    ::placeholder{
-      color: var(--s-placeholder);
-    }
-    .item-name:focus{
-      outline: none;
-    }
-    .item-name:focus::placeholder{
-      color: var(--s-f-placeholder);
-    }
-    input.checkbox{
-      position: relative;
-      width: 25px;
-      height: 25px;
-      margin: 8px 0px 0px 8px;
-    }
-    input.checkbox::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: var(--s-check-circle);
-      border-radius: 13px;
-      border: 2px solid var(--s-check-border);
-      box-sizing: border-box;
-    }
-    input.checkbox::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0px;
-      height: 0px;
-      box-sizing: border-box;
-      opacity: 0;
-      border-left: 3px solid var(--s-check-mark);
-      border-bottom: 3px solid var(--s-check-mark);
-      margin-left: -7px;
-      margin-top: 0px;
-      transform: rotate(-45deg);
-      transform-origin: top left;
-      transition: height 0.1s, width 0.3s 0.1s;
-    }
-    input.checkbox:checked::before {
-      border-color: var(--s-check-mark);
-    }
-    input.checkbox:checked::after {
-      opacity: 1;
-      width: 12px;
-      height: 8px;
-    }
-    input.checkbox:disabled::before{
-      border-color: transparent;
-    }
-    .code-reveal {
-      background: transparent;
-      border: none;
-      font-size: 1em;
-      color: var(--link);
-    }
-    .code-reveal:hover{
-      color: var(--text);
-      text-decoration: underline;
-    }
-    .code-reveal:active{
-      color: -webkit-link-visited;
-      text-decoration: underline;
-    }
-    .code-reveal:focus{
-      outline: none;
-    }
-    @media screen and (min-width: 860px) {
-      section.demo-group {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-content: stretch;
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --text: #ddd;
+          --link: #888;
+          --bg: #111;
+          --s-item-border: #333;
+          --s-placeholder: #666;
+          --s-f-placeholder: #111;
+          --s-check-border: #666;
+          --s-check-circle: #111;
+          --s-check-mark: #ddd;
+        }
+      }
+      body{
+        background: var(--bg);
+        color: var(--text);
+      }
+      #wordmark {
+        font: 700 3.5em "Source Code Pro", monospace;
+        letter-spacing: -4px;
+      }
+      #wordmark > picture > img {
+        height: 52px;
+        margin-bottom: -10px;
+      }
+      .impression{
+        font: 300 1em sans-serif;
       }
       .demo-header{
         display: flex;
         justify-content: space-between;
-        flex: 1 0 100%;
+        align-items: center;
       }
-      .demo, .demo-code{
-        flex: 1 1 calc(50% - 8px);
-      }
-      .demo-code{
+      .shopping-item {
+        border: 1px solid var(--s-item-border);
+        display: flex;
         overflow: hidden;
-        flex: 0 1 0px;
-        transition: flex 0.5s;
       }
-      .demo-code.code-revealed{
-        flex: 1 1 calc(50% - 8px);
-        margin-left: 12px;
-        overflow: auto;
+      .shopping-item + .shopping-item {
+        border-top: none;
       }
-      .demo-code > pre{
+      .shopping-item:first-child {
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+      .shopping-item:last-child {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+      .item-name {
+        background: var(--bg);
+        color: var(--text);
+        border: none;
+        width: 100%;
+        padding: 6px;
+        font: 300 1.6em sans-serif;
+        flex: 1 0;
+      }
+      .item-name.crossed{
+        text-decoration: line-through;
+        color: #aaa;
+      }
+      ::placeholder{
+        color: var(--s-placeholder);
+      }
+      .item-name:focus{
+        outline: none;
+      }
+      .item-name:focus::placeholder{
+        color: var(--s-f-placeholder);
+      }
+      input.checkbox{
+        position: relative;
+        width: 25px;
+        height: 25px;
+        margin: 8px 0px 0px 8px;
+      }
+      input.checkbox::before {
+        content: "";
+        position: absolute;
+        width: 100%;
         height: 100%;
-      }
-      .demo-code > pre > code, .demo-code > pre {
-        margin: 0px;
+        background: var(--s-check-circle);
+        border-radius: 13px;
+        border: 2px solid var(--s-check-border);
         box-sizing: border-box;
       }
-    }
-    @media screen and (max-width: 860px) {
-      .demo-code{
-        overflow: hidden;
+      input.checkbox::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0px;
         height: 0px;
-        transition: 0.5s;
+        box-sizing: border-box;
+        opacity: 0;
+        border-left: 3px solid var(--s-check-mark);
+        border-bottom: 3px solid var(--s-check-mark);
+        margin-left: -7px;
+        margin-top: 0px;
+        transform: rotate(-45deg);
+        transform-origin: top left;
+        transition: height 0.1s, width 0.3s 0.1s;
       }
-      .demo-code > pre{
-        margin: 0px;
+      input.checkbox:checked::before {
+        border-color: var(--s-check-mark);
       }
-      .demo-code.code-revealed{
-        height: 300px;
-        margin-top: 12px;
-        overflow: auto;
+      input.checkbox:checked::after {
+        opacity: 1;
+        width: 12px;
+        height: 8px;
       }
-    }
-  </style>
+      input.checkbox:disabled::before{
+        border-color: transparent;
+      }
+      .code-reveal {
+        background: transparent;
+        border: none;
+        font-size: 1em;
+        color: var(--link);
+      }
+      .code-reveal:hover{
+        color: var(--text);
+        text-decoration: underline;
+      }
+      .code-reveal:active{
+        color: -webkit-link-visited;
+        text-decoration: underline;
+      }
+      .code-reveal:focus{
+        outline: none;
+      }
+      @media screen and (min-width: 860px) {
+        section.demo-group {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-content: stretch;
+        }
+        .demo-header{
+          display: flex;
+          justify-content: space-between;
+          flex: 1 0 100%;
+        }
+        .demo, .demo-code{
+          flex: 1 1 calc(50% - 8px);
+        }
+        .demo-code{
+          overflow: hidden;
+          flex: 0 1 0px;
+          transition: flex 0.5s;
+        }
+        .demo-code.code-revealed{
+          flex: 1 1 calc(50% - 8px);
+          margin-left: 12px;
+          overflow: auto;
+        }
+        .demo-code > pre{
+          height: 100%;
+        }
+        .demo-code > pre > code, .demo-code > pre {
+          margin: 0px;
+          box-sizing: border-box;
+        }
+      }
+      @media screen and (max-width: 860px) {
+        .demo-code{
+          overflow: hidden;
+          height: 0px;
+          transition: 0.5s;
+        }
+        .demo-code > pre{
+          margin: 0px;
+        }
+        .demo-code.code-revealed{
+          height: 300px;
+          margin-top: 12px;
+          overflow: auto;
+        }
+      }
+    </style>
+  </head>
   <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/javascript.min.js" charset="utf-8"></script>
