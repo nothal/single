@@ -57,8 +57,12 @@ HTMLElement.prototype.has = function (elem) {
   }
   return this;
 };
-EventTarget.prototype.on = function (action, callback) {
-  this.addEventListener(action, callback);
+EventTarget.prototype.on = function (listeners) {
+  for (var action in listeners) {
+    if (listeners.hasOwnProperty(action)) {
+      this.addEventListener(action, listeners[action]);
+    }
+  }
   return this;
 };
 Node.prototype.clear = function () {

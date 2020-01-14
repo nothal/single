@@ -17,7 +17,7 @@ Single is a JavaScript library that expands the functionality of HTML Element, w
 | __has__ | used for appending element to a container element | 1 or more elements |
 | __is__ | used for adding classes to an element | 1 or more strings |
 | __isnt__ | used for removing classes from an element | 1 or more strings |
-| __on__ | used for adding event listener to element, used like addEventListener | only 1 action string and 1 handler function |
+| __on__ | used for adding event listener to element | 1 object |
 | __says__ | used for appending text to an element | only 1 string |
 | __set__ | used for setting other attributes for an element | 1 object |
 | __text__ | used for replacing everything in an element with text | only 1 string |
@@ -32,15 +32,15 @@ function itemTemplate(itemObject){
     a("h3").as(`${itemObject.id}-name`).is("product-name").says(itemObject.name),
     a("p").as(`${itemObject.id}-description`).is("product-description").says(itemObject.description),
     a("p").as(`${itemObject.id}-price`).is("product-price").says(itemObject.price)
-  );
+  ).on({mouseover: expand, mouseout: shrink});
 }
 ```
 ```js
 // mock item for sample code
 var item = {
-  id: "HB0123GL", 
-  name: "Fancy Hand Bag", 
-  img: "images/fancy-hand-bag.png", 
+  id: "HB0123GL",
+  name: "Fancy Hand Bag",
+  img: "images/fancy-hand-bag.png",
   description: "Champaigne gold trimming with geniune lether",
   price: "£990"
   link: "products/accessories/fancy-hand-bag.html"
@@ -72,31 +72,33 @@ function itemTemplate(itemObject){
   var desc = document.createElement("p");
   var price = document.createElement("p");
   var item = document.createElement("a");
-  
+
   item.href = itemObject.link;
   item.id = itemObject.id;
   item.classList.add("product-preview");
-  
+  item.addEventListener("mouseover", expand);
+  item.addEventListener("mouseout", shrink);
+
   img.src = itemObject.img;
   img.alt = itemObject.name;
-  
+
   name.id = `${itemObject.id}-name`;
   name.innerHTML = itemObject.name;
   name.classList.add("product-name");
-  
+
   desc.id = `${itemObject.id}-description`;
   desc.innerHTML = itemObject.description;
   desc.classList.add("product-description");
-  
+
   price.id = `${itemObject.id}-price`;
   price.innerHTML = itemObject.price;
   price.classList.add("product-price")
-  
+
   item.appendChild(image);
   item.appendChild(name);
   item.appendChild(desc);
   item.appendChild(price);
-  
+
   return item;
 }
 ```
@@ -108,5 +110,5 @@ Single.js has several key advantages over vanilla js:
 - it is easy to learn and easy to start.
 
 # ![single-v](https://nothal.github.io/single/images/Wordmark-black.svg)
-A graphics library for single. 
+A graphics library for single.
 coming soon

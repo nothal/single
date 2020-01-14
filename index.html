@@ -208,13 +208,13 @@
       var si = 0;
       var header = a("header").as("header").is("header").has(
         a("div").as("wordmark").is("impression").set({alt: "single."}).has(pic({"(min-width: 360px)": "images/wordmark.svg"}, "images/icon.svg")).says("basic"),
-        a("div").as("motto").is("impression").says("short. simple. semantic.")
+        a("div").as("motto").is("impression").says("Once and done.")
       );
       var main = a("main").as("demo-area").is("demo-area").has(
         a("section").is("demo-group").has(
           a("header").as("shopping-list-header").is("demo-header").has(
             a("h1").as("shopping-list-demo-name").is("demo-name").says("Shopping List"),
-            a("button").as("shopping-list-code").is("code-reveal").says("show code").on("click", showCode)
+            a("button").as("shopping-list-code").is("code-reveal").says("show code").on({click: showCode})
           ),
           a("section").as("shopping-list").is("demo").has(
             shoppingItem(si)
@@ -262,11 +262,10 @@
         var item = a("div").as(`item${count}`).is("shopping-item").has(
           a("input").as(`itm-${count}`).is("checkbox")
             .set({type: "checkbox", disabled: true})
-            .on("click", crossOut),
+            .on({click: crossOut}),
           a("input").as(`itm-${count}-name`).is("item-name")
             .set({type: "text", placeholder: "Add new item"})
-            .on("focus", addShoppingItem)
-            .on("blur", removeBlankItem)
+            .on({focus: addShoppingItem, blur: removeBlankItem})
         )
         si++;
         return item;
