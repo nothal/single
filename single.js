@@ -35,23 +35,23 @@ function pic(set, fallback) {
   }
   return pictureSet;
 }
-HTMLElement.prototype.as = function (id) {
+Element.prototype.as = function (id) {
   this.id = id;
   return this;
 };
-HTMLElement.prototype.is = function (cname) {
+Element.prototype.is = function (cname) {
   for (var i = 0; i < arguments.length; i++) {
     this.classList.add(arguments[i]);
   }
   return this;
 };
-HTMLElement.prototype.isnt = function (cname) {
+Element.prototype.isnt = function (cname) {
   for (var i = 0; i < arguments.length; i++) {
     this.classList.remove(arguments[i]);
   }
   return this;
 };
-HTMLElement.prototype.has = function (elem) {
+Node.prototype.has = function (elem) {
   for (var i = 0; i < arguments.length; i++) {
     this.appendChild(arguments[i]);
   }
