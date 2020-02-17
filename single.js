@@ -65,9 +65,17 @@ EventTarget.prototype.on = function (listeners) {
   }
   return this;
 };
+EventTarget.prototype.ignore = function (listeners) {
+  for (var action in listeners) {
+    if (listeners.hasOwnProperty(action)) {
+      this.removeEventListener(action, listeners[action]);
+    }
+  }
+  return this;
+};
 Node.prototype.clear = function () {
-  for (var i = 0; i < this.childNodes.length; i++) {
-    this.childNodes[i].remove();
+  while (this.childNodes.length > 0) {
+    this.childNodes[0].remove();
   }
   return this;
 };
@@ -75,8 +83,8 @@ Node.prototype.says = function (txt) {
   this.appendChild(document.createTextNode(txt));
   return this;
 };
-Node.prototype.text = function (txt) {
-  this.clear().appendChild(document.createTextNode(txt));
+Node.prototype.txt = function (t) {
+  this.clear().appendChild(document.createTextNode(t));
   return this;
 };
 Node.prototype.set = function (attr) {
@@ -84,6 +92,12 @@ Node.prototype.set = function (attr) {
     if (attr.hasOwnProperty(key)) {
       this.setAttribute(key, attr[key]);
     }
+  }
+  return this;
+};
+Node.prototype.unset = function (attr) {
+  for (var i = 0; i < arguments.length; i++) {
+    this.removeAttribute(arguments[i]);
   }
   return this;
 };
