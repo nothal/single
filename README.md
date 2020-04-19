@@ -23,6 +23,9 @@ Single is a JavaScript library that expands the functionality of HTML Element, w
 | __text__ | replacing everything in an element with text | 1 string | ✔️ | ❌ | `single.text("Hello")` |
 
 please note that these functions cannot be used to start the function chain, it has to be chained with variable or functions that return element.
+
+For `says` and `text` function, all the symbols in the string are shown as is, meaning if you have `&lt;` it will appear as `&lt;` not `<`. The same goes with other symbols. 
+
 ### Standalone functions
 These are functions which start the chain, all chainable functions can be used on them, and you must not use any of these names for any of your variables or functions as they will break the program.
 
