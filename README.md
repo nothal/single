@@ -10,7 +10,7 @@ A more meaningful JavaScript syntax starts here.
 In order to use single, you have to understand the concept of single.
 Single is a JavaScript library that expands the functionality of HTML Element, what it does is attaching its functions to the HTML Element prototype, so it can be called directly without using special function first. In HTML Element, there are a lot of properties already exists, so we cannot add functions with the same name to the element prototype, instead we have list of functions that can be called directly on element
 
-| function | used for | parameters required | ⛓ | <img src="https://image.flaticon.com/icons/png/128/427/427513.png" width="24" height="24"> | sample |
+| function | used for | parameters required | ⛓ | 🪺 | sample |
 | :--- | :--- | :--- | :---: | :---: | :--- |
 | __as__ | modifying element's ID | 1 string | ✔️ | ❌ | `single.as("id")` |
 | __clear__ | emptying an element's content | no parameters | ✔️ | ❌ | `single.clear()` |
@@ -29,7 +29,7 @@ For `says` and `text` function, all the symbols in the string are shown as is, m
 ### Standalone functions
 These are functions which start the chain, all chainable functions can be used on them, and you must not use any of these names for any of your variables or functions as they will break the program.
 
-| function | used for | parameters required | 🔗 | <img src="https://image.flaticon.com/icons/png/128/427/427513.png" width="24" height="24"> |  sample |
+| function | used for | parameters required | 🔗 | 🪺 |  sample |
 | :--- | :--- | :--- | :---: | :---: | :--- |
 | __a__ | creating a new HTML5 element | 1 string | ✔️ | ❌ | `a("div")` |
 | __the__ | selecting one HTML5 element | 1 string | ✔️ | ❌ | `the("#single")` |
